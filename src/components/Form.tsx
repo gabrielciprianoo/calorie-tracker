@@ -67,7 +67,7 @@ export default function Form() {
         <input
          type="submit"
          value="Guardar comida o Ejercicio"
-         className="bg-gray-800 text-white font-bold py-2 px-4 rounded-lg cursor-pointer hover:bg-gray-900 transition duration-200 w-full"
+         className="bg-gray-800 text-white font-bold py-2 px-4 rounded-lg cursor-pointer hover:bg-gray-900 transition duration-200 w-full uppercase"
         />
     </form>
   );
