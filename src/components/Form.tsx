@@ -1,12 +1,19 @@
 import { categories } from "../data/categories";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, Dispatch } from "react";
+import { Activity } from "../types";
+import { ActivityActions } from "../reducers/activity-reducer";
 
-export default function Form() {
-  const [activity, setActivity] = useState({
+type formProps = {
+  dispatch: Dispatch<ActivityActions>;
+};
+
+export default function Form({ dispatch }: formProps) {
+  const initialState = {
     category: 1,
     name: "",
     calories: 0,
-  });
+  }
+  const [activity, setActivity] = useState<Activity>(initialState);
 
   const handleOnChange = (
     event: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>
@@ -21,17 +28,18 @@ export default function Form() {
   };
 
   const isValidActivity = () => {
-    const {name, calories } = activity
-    return name.trim() !== "" && calories > 0
-  }
+    const { name, calories } = activity;
+    return name.trim() !== "" && calories > 0;
+  };
 
-  const handleSubmmit = (event : FormEvent<HTMLFormElement>) =>{
-    event.preventDefault()
-    console.log('submit', activity)
-  }
+  const handleSubmmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    dispatch({ type: "save-activity", payload: { newActivity: activity } });
+    setActivity(initialState);
+  };
 
   return (
-    <form 
+    <form
       className="space-y-4 bg-white shadow p-10 rounded-lg"
       onSubmit={handleSubmmit}
     >
@@ -87,7 +95,7 @@ export default function Form() {
 
       <input
         type="submit"
-        value={activity.category === 1 ? 'Agregar Comida' : 'Agregar Ejercicio'}
+        value={activity.category === 1 ? "Agregar Comida" : "Agregar Ejercicio"}
         className="bg-gray-800 text-white font-bold py-2 px-4 rounded-lg cursor-pointer hover:bg-gray-900 transition duration-200 w-full uppercase disabled:opacity-50 disabled:cursor-not-allowed"
         disabled={!isValidActivity()}
       />
