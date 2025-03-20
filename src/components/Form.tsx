@@ -4,7 +4,7 @@ import { useState, ChangeEvent } from "react";
 export default function Form() {
   const [activity, setActivity] = useState({
     category: 1,
-    activity: "",
+    name: "",
     calories: 0,
   });
 
@@ -20,6 +20,11 @@ export default function Form() {
     });
   };
 
+  const isValidActivity = () => {
+    const {name, calories } = activity
+    return name.trim() !== "" && calories > 0
+  }
+
   return (
     <form className="space-y-4 bg-white shadow p-10 rounded-lg">
       <div className="grid grid-cols-1 gap-3">
@@ -29,6 +34,7 @@ export default function Form() {
         <select
           className="border border-slate-300 p-2 rounded-lg  w-full bg-white"
           id="category"
+          name="category"
           onChange={handleOnChange}
         >
           {categories.map((category) => (
@@ -46,11 +52,11 @@ export default function Form() {
 
         <input
           type="text"
-          name="activity"
-          id="activity"
+          name="name"
+          id="name"
           className="border border-slate-300 p-2 rounded-lg"
           placeholder="Ejemplo: Correr 5km, Jugo de Naranja, etc."
-          value={activity.activity}
+          value={activity.name}
           onChange={handleOnChange}
         />
       </div>
@@ -73,8 +79,9 @@ export default function Form() {
 
       <input
         type="submit"
-        value="Guardar comida o Ejercicio"
-        className="bg-gray-800 text-white font-bold py-2 px-4 rounded-lg cursor-pointer hover:bg-gray-900 transition duration-200 w-full uppercase"
+        value={activity.category === 1 ? 'Agregar Comida' : 'Agregar Ejercicio'}
+        className="bg-gray-800 text-white font-bold py-2 px-4 rounded-lg cursor-pointer hover:bg-gray-900 transition duration-200 w-full uppercase disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled={!isValidActivity()}
       />
     </form>
   );
