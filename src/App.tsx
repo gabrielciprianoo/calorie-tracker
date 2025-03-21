@@ -15,7 +15,7 @@ function App() {
   return (
     <>
       <header id="register" className="bg-lime-600 py-3">
-        <div className="max-w-4xl mx-auto flex justify-between">
+        <div className="max-w-4xl mx-auto flex justify-between items-center">
           <h1 className="tex-center px-5 lg:px-0 text-lg font-bold text-white uppercase">
             Contador de Calorias
           </h1>
