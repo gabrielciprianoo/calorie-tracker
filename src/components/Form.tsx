@@ -1,21 +1,34 @@
 import { categories } from "../data/categories";
-import { useState, ChangeEvent, FormEvent, Dispatch } from "react";
-import {v4 as uuid} from 'uuid'
+import { useState, ChangeEvent, FormEvent, Dispatch, useEffect } from "react";
+import { v4 as uuid } from "uuid";
 import { Activity } from "../types";
-import { ActivityActions } from "../reducers/activity-reducer";
+import { ActivityActions, ActivityState } from "../reducers/activity-reducer";
 
 type formProps = {
   dispatch: Dispatch<ActivityActions>;
+  state: ActivityState;
 };
 
-export default function Form({ dispatch }: formProps) {
-  const initialState : Activity = {
+export default function Form({ dispatch, state }: formProps) {
+  const initialState: Activity = {
     id: uuid(),
     category: 1,
     name: "",
     calories: 0,
-  }
+  };
   const [activity, setActivity] = useState<Activity>(initialState);
+
+  useEffect(() => {
+    if (state.activeId) {
+      const selectedActivity = state.activities.find(
+        (stateActivity) => stateActivity.id === state.activeId
+      );
+
+      if (selectedActivity) {
+        setActivity(selectedActivity);
+      }
+    }
+  }, [state.activeId, state.activities]);
 
   const handleOnChange = (
     event: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>
@@ -37,7 +50,7 @@ export default function Form({ dispatch }: formProps) {
   const handleSubmmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch({ type: "save-activity", payload: { newActivity: activity } });
-    setActivity({...initialState, id: uuid()});
+    setActivity({ ...initialState, id: uuid() });
   };
 
   return (
@@ -54,6 +67,7 @@ export default function Form({ dispatch }: formProps) {
           id="category"
           name="category"
           onChange={handleOnChange}
+          value={activity.category}
         >
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
