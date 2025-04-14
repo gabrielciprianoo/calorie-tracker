@@ -1,11 +1,11 @@
-import { useEffect, useReducer } from "react";
+import { useEffect } from "react";
 import Form from "./components/Form";
-import { activityReducer, initialState } from "./reducers/activity-reducer";
 import ActivityList from "./components/ActivityList";
 import CalorieTracker from "./components/CalorieTracker";
+import { useActivity } from "./hooks/useActivity";
 
 function App() {
-  const [state, dispatch] = useReducer(activityReducer, initialState);
+  const { state, dispatch } = useActivity();
 
   useEffect(() => {
     localStorage.setItem("activities", JSON.stringify(state.activities));
@@ -35,7 +35,7 @@ function App() {
 
       <section className="bg-lime-500 py-8 md:py-20 px-5">
         <div className="max-w-4xl mx-auto">
-          <Form dispatch={dispatch} state={state} />
+          <Form />
         </div>
       </section>
 
