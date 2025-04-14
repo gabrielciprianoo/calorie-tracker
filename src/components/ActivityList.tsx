@@ -1,18 +1,14 @@
-import { Dispatch } from "react";
 import { Activity } from "../types";
 import { categories } from "../data/categories";
 import { categoryColors } from "../data/colors";
 import { PencilSquareIcon, XCircleIcon } from "@heroicons/react/24/outline";
-import { ActivityActions } from "../reducers/activity-reducer";
+import { useActivity } from "../hooks/useActivity";
 
-type ActivityListProps = {
-  activities: Activity[];
-  dispatch: Dispatch<ActivityActions>;
-};
-export default function ActivityList({
-  activities,
-  dispatch,
-}: ActivityListProps) {
+export default function ActivityList() {
+
+  const { state, dispatch } = useActivity();
+  const { activities } = state;
+
   const categoryName = (category: Activity["category"]) => {
     const foundCategory = categories.find(
       (temporalCategory) => temporalCategory.id === category
@@ -70,7 +66,10 @@ export default function ActivityList({
             <XCircleIcon
               className="h-8 w-8 text-red-600 cursor-pointer"
               onClick={() =>
-                dispatch({ type: "delete-activity", payload: { id: activity.id } })
+                dispatch({
+                  type: "delete-activity",
+                  payload: { id: activity.id },
+                })
               }
             />
           </div>
