@@ -53,7 +53,7 @@ export default function Form() {
 
   return (
     <form
-      className="space-y-4 bg-white shadow p-10 rounded-lg"
+      className="space-y-4 bg-white dark:bg-gray-800 shadow p-10 rounded-lg"
       onSubmit={handleSubmmit}
     >
       <div className="grid grid-cols-1 gap-3">
@@ -61,7 +61,7 @@ export default function Form() {
           Categoria
         </label>
         <select
-          className="border border-slate-300 p-2 rounded-lg  w-full bg-white"
+          className="border border-slate-300 dark:border-gray-700 p-2 rounded-lg w-full bg-white dark:bg-gray-700 dark:text-white"
           id="category"
           name="category"
           onChange={handleOnChange}
@@ -84,7 +84,7 @@ export default function Form() {
           type="text"
           name="name"
           id="name"
-          className="border border-slate-300 p-2 rounded-lg"
+          className="border border-slate-300 dark:border-gray-700 p-2 rounded-lg bg-white dark:bg-gray-700 dark:text-white"
           placeholder="Ejemplo: Correr 5km, Jugo de Naranja, etc."
           value={activity.name}
           onChange={handleOnChange}
@@ -100,7 +100,7 @@ export default function Form() {
           type="number"
           name="calories"
           id="calories"
-          className="border border-slate-300 p-2 rounded-lg"
+          className="border border-slate-300 dark:border-gray-700 p-2 rounded-lg bg-white dark:bg-gray-700 dark:text-white"
           placeholder="Calorias Ejemplo: 500"
           value={activity.calories}
           onChange={handleOnChange}
@@ -110,7 +110,7 @@ export default function Form() {
       <input
         type="submit"
         value={activity.category === 1 ? "Agregar Comida" : "Agregar Ejercicio"}
-        className="bg-gray-800 text-white font-bold py-2 px-4 rounded-lg cursor-pointer hover:bg-gray-900 transition duration-200 w-full uppercase disabled:opacity-50 disabled:cursor-not-allowed"
+        className="bg-gray-800 dark:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg cursor-pointer hover:bg-gray-900 dark:hover:bg-gray-600 transition duration-200 w-full uppercase disabled:opacity-50 disabled:cursor-not-allowed"
         disabled={!isValidActivity()}
       />
     </form>

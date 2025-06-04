@@ -18,17 +18,17 @@ export default function ActivityList() {
 
   return (
     <>
-      <h2 className="text-4xl font-bold text-slate-600 text-center">
+      <h2 className="text-4xl font-bold text-gray-800 dark:text-white text-center">
         Comida y Actividades
       </h2>
 
       {activities.length === 0 && (
         <div className="flex flex-col justify-center gap-4 items-center mt-10 text-lg">
-          <p className="text-center text-lg text-slate-500">
+          <p className="text-center text-lg text-slate-500 dark:text-slate-400">
             No hay actividades registradas
           </p>
 
-          <a className="text-lime-600 text-sm" href="#register">
+          <a className="text-lime-600 dark:text-lime-400 text-sm" href="#register">
             Registra Tu Primera Actividad
           </a>
         </div>
@@ -37,7 +37,7 @@ export default function ActivityList() {
       {activities.map((activity) => (
         <div
           key={activity.id}
-          className="px-5 py-10 bg-white mt-5 flex justify-between"
+          className="px-5 py-10 bg-white dark:bg-gray-800 mt-5 flex justify-between rounded-lg shadow"
         >
           <div className="space-y-2 relative">
             <p
@@ -58,7 +58,7 @@ export default function ActivityList() {
 
           <div className="flex gap-5 items-center">
             <PencilSquareIcon
-              className="h-8 w-8 text-gray-800 cursor-pointer"
+              className="h-8 w-8 text-gray-800 dark:text-gray-100 cursor-pointer"
               onClick={() =>
                 dispatch({ type: "set-activeId", payload: { id: activity.id } })
               }
